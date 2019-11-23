@@ -68,7 +68,6 @@ function movieThis(value) {
                     "\nYear of Release: " + response.data.Year +
                     "\nIMDB Rating: " + response.data.imdbRating +
                     "\nRotten Tomatoes Rating: " + response.data.Ratings[1].Value +
-                    "\nCountry Produced: " + response.data.Country +
                     "\nLanguage: " + response.data.Language +
                     "\nPlot: " + response.data.Plot +
                     "\nActors/Actresses: " + response.data.Actors;
