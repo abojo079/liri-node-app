@@ -19,6 +19,8 @@
   "homepage": "https://github.com/abojo079/liri-node-app#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "liri-node-app1": "^1.1.1",
+    "node-spotify-api": "^1.1.1",
     "process-env": "^1.1.0"
   }
 }
