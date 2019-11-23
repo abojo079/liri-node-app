@@ -11,51 +11,32 @@ var axios = require('axios'); //To get the information from the APIs for movie a
 
 var fs = require('fs'); //To read the random.txt file for the do-what-it-says function
 
-var command = process.argv[2]; //For the switch statement
-var value = process.argv[3]; //To send the song/movie/concert to their respective functions
+var search = process.argv[2]; 
+var term = process.argv[3]; //To send the song/movie/concert to their respective functions
 
-switch (command) {
+switch (search) {
     case "concert-this":
-        concertThis(value);
+        concertThis(term);
         break;
     case "spotify-this-song":
-        spotifySong(value);
+        spotifySong(term);
         break;
     case "movie-this":
-        movieThis(value);
+        movieThis(term);
         break;
     case "do-what-it-says":
-        doThis(value);
+        doThis(term);
         break;
 };
 
-function concertThis(value) {
-    axios.get("https://rest.bandsintown.com/artists/" + value + "/events?app_id=codingbootcamp")
-    .then(function(response) {    
-        for (var i = 0; i < response.data.length; i++) {
 
-            var datetime = response.data[i].datetime; //Saves datetime response into a variable
-            var dateArr = datetime.split('T'); //Attempting to split the date and time in the response
-
-            var concertResults = 
-                "--------------------------------------------------------------------" +
-                    "\nVenue Name: " + response.data[i].venue.name + 
-                    "\nVenue Location: " + response.data[i].venue.city +
-                    "\nDate of the Event: " + moment(dateArr[0], "MM-DD-YYYY"); //dateArr[0] should be the date separated from the time
-            console.log(concertResults);
-        }
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-        
-
-}
 
 function spotifySong(value) {
-    if(!value){
+    if(typeof value === "undefined"){
         value = "The Sign";
     }
+
+
     spotify
     .search({ type: 'track', query: value })
     .then(function(response) {
@@ -97,15 +78,4 @@ function movieThis(value) {
         console.log(error);
     });
     
-}
-
-function doThis(value) {
-
-    fs.readFile("random.txt", "utf8", function(error, data) {
-        if (error) {
-            return console.log(error);
-        }
-        var dataArr = data.split(',');
-        spotifySong(dataArr[0], dataArr[1]);
-    })
 }
